@@ -9,15 +9,15 @@ grid.randomEmptyCell().tile = new Tile(gameBoard);
 setupInput();
 function setupInput() {
     window.addEventListener('keydown', handleInput, {once: true});
-    window.addEventListener('touchstart', handleTouchStart, false);
-    window.addEventListener('touchmove', handleTouchMove, false);
-    window.addEventListener('touchend', handleTouchEnd, false);
-
-    window.addEventListener('swiped-left',  handleLeft, {once: true});
-    window.addEventListener('swiped-right',  hadnleRight, {once: true});
-    window.addEventListener('swiped-up',  hadnleUp, {once: true});
-    window.addEventListener('swiped-down',  hadnleDown, {once: true});
-
+    //listeners for touch events
+    gameBoard.addEventListener('touchstart', handleTouchStart, false);
+    gameBoard.addEventListener('touchmove', handleTouchMove, false);
+    gameBoard.addEventListener('touchend', handleTouchEnd, false);
+    //custom listeners for swipe events
+    gameBoard.addEventListener('swiped-left',  handleLeft, {once: true});
+    gameBoard.addEventListener('swiped-right',  hadnleRight, {once: true});
+    gameBoard.addEventListener('swiped-up',  hadnleUp, {once: true});
+    gameBoard.addEventListener('swiped-down',  hadnleDown, {once: true});
 }
 
 async function handleLeft() {  
@@ -80,7 +80,7 @@ async function handleInput(e) {
     if (!canMoveUp() && !canMoveDown() && !canMoveLeft() && !canMoveRight()) {
         newTile.waitForTranstion(true).then(() => {
             alert('You Lose!');
-            window.location.href = '/';
+            location.reload();
         });
         return;
     }
